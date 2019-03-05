@@ -1,5 +1,5 @@
-<html>
-    <body>
+<?php /* /var/www/html/mvc/views/login_view.blade.php */ ?>
+<?php $__env->startSection('content'); ?>
         <center>
         <form action="/user/auth" method="post">
             <h3>Login page</h3>
@@ -9,5 +9,5 @@
             <input type="submit" value="Login">
         </form>
         </center>
-    </body>
-</html>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

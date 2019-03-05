@@ -1,30 +1,18 @@
 <?php
 
 namespace Controllers;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class TaskController extends BaseController
 {
 
-    public function createAction()
+    public function getCreate()
     {
-        $fc = $this->fc;
-        $task = new User();
-        $result = $task->render('../views/task_create_view.php');
-        $fc->setBody($result);
+        return $this->blade->make('task_create');
     }
 
     public function getCheck()
     {
-        $task = new \Models\Task();
-        // $task->setUsername("Jasurbek");
-        // $task->setBody("I wan these the das");
-        // $task->setEmail("jack@mail.ru");
-        // $task->setImage("sfds.jpg");
-
-        // $this->em->persist($task);
-        // $this->em->flush();
-        // $productRepository = $this->em->getRepository('Models\\Task');
-        // $tasks = $productRepository->findAll();
 
         // foreach($tasks as $task){
         //     echo $task->getUsername()."<br>";
@@ -33,47 +21,37 @@ class TaskController extends BaseController
         
     }
 
-    public function pushAction()
+    public function postCreate()
     {
-        if (isset($_POST['e-mail']) && isset($_POST['text']) && isset($_FILES['image'])) {
-            $mail = $_POST['e-mail'];
-            $text = $_POST['text'];
-            $image = $_FILES['image'];
-            $img_size = getimagesize($image['tmp_name']);
-            if ($img_size[0] > 320 && $img_size[1] > 240) {
-                try {
-                    $manipulator = new ImageManipulator($image['tmp_name']);
-                    $newImage = $manipulator->resample(320, 240);
-                    $newNamePrefix = time() . '_' . $image['name'];
-                    try {
-                        $manipulator->save('uploads/' . $newNamePrefix);
-                    } catch (Exception $a) {
-                        echo $a->getMessage();
-                    }
-                } catch (Exception $e) {
-                    echo $e->getMessage();
-                }
-            }
-            $task = new Task();
-            $result = $task->create($text,$mail,$newNamePrefix);
-            if ($result === true) {
-                header('Location: /');
-            } else {
-                header('Location: ' . $_SERVER['HTTP_REFERER']);
-            }
-        }
+        $task = new \Models\Task();
+
+        $mail = $_POST['e-mail'];
+        $text = $_POST['text'];
+        $image = $_FILES['image'];
+        $username = $_POST['username'];
+
+        // $img = Image::make("uploads/".$image["name"]."")->resize(300, 200);
+
+        // $img->save('uploads/'.$image["tmp_name"]);
+
+        $task->setUsername($username);
+        $task->setBody($text);
+        $task->setEmail($mail);
+        $task->setImage("sfds.jpg");
+
+        $this->em->persist($task);
+        $this->em->flush();
+        
+        header('Location: /task/create');
     }
 
-    public function deleteAction()
+    public function getDelete($id)
     {
-        $fc = $this->fc;
-        $params = $fc->getParams();
-        // print_r($params['id']);die();
-        $task = new Task();
-        $result = $task->delete($params['id']);
-        if($result){
-            header('Location: /');
-        }
+        $taskRepository = $this->em->getRepository('Models\\Task');
+        $task = $taskRepository->find($id);
+        $this->em->remove($task);
+        $this->em->flush();
+        header('Location: /');
     }
 
 }

@@ -1,25 +1,17 @@
 <?php
 
-class UserController extends IController
+namespace Controllers;
+
+class UserController extends BaseController
 {
 
-    public function __construct()
+    public function getIndex()
     {
-        parent::__construct();
+        return $this->blade->make('login_view');
     }
 
-    public function loginAction()
+    public function postAuth()
     {
-        $fc = $this->fc;
-        $user = new User();
-        $result = $user->render('../views/login_view.php');
-
-        $fc->setBody($result);
-    }
-
-    public function authAction()
-    {
-        $fc = $this->fc;
         if (isset($_POST['username']) && isset($_POST['password'])) {
             $username = (string) $_POST['username'];
             $password = $_POST['password'];
@@ -34,7 +26,7 @@ class UserController extends IController
         }
     }
 
-    public function logoutAction()
+    public function getLogout()
     {
       if($_SESSION['auth'] == 1){
           session_destroy();
