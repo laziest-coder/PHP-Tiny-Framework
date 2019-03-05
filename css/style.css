@@ -1,0 +1,13 @@
+﻿
+.media {
+	display: inline-flex;
+}
+.media a {
+	margin-right: 30px;
+}
+.el {
+	margin-top: 50px;
+	border: 2px solid black;
+	margin-bottom: 10px;
+	display: inline-flex;
+}
