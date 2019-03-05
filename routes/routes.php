@@ -13,3 +13,4 @@ $router->get('hello', function(){
 $router->get('jasur',function(){
     return "Hello Jasur :D";
 });
+$router->controller('checkdb','Controllers\\TaskController');

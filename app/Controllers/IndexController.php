@@ -1,11 +1,14 @@
 <?php
-class IndexController extends IController
+
+namespace Controllers;
+
+class IndexController 
 {
     
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    // public function __construct()
+    // {
+    //     parent::__construct();
+    // }
 
     public function indexAction()
     {
@@ -17,6 +20,11 @@ class IndexController extends IController
         $result = $task->render('../views/index.php');
 
         $fc->setBody($result);
+    }
+
+    public function getTest()
+    {
+        return "Yes inside idnex controller :D";
     }
 
 }

@@ -1,11 +1,9 @@
 <?php
-class TaskController extends IController
-{
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
+namespace Controllers;
+
+class TaskController extends BaseController
+{
 
     public function createAction()
     {
@@ -13,6 +11,26 @@ class TaskController extends IController
         $task = new User();
         $result = $task->render('../views/task_create_view.php');
         $fc->setBody($result);
+    }
+
+    public function getCheck()
+    {
+        $task = new \Models\Task();
+        // $task->setUsername("Jasurbek");
+        // $task->setBody("I wan these the das");
+        // $task->setEmail("jack@mail.ru");
+        // $task->setImage("sfds.jpg");
+
+        // $this->em->persist($task);
+        // $this->em->flush();
+        // $productRepository = $this->em->getRepository('Models\\Task');
+        // $tasks = $productRepository->findAll();
+
+        // foreach($tasks as $task){
+        //     echo $task->getUsername()."<br>";
+        // }
+        return $this->blade->make('index', ['name' => 'John Doe']);
+        
     }
 
     public function pushAction()
