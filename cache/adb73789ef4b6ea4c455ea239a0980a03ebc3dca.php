@@ -1,7 +1,7 @@
 <?php /* /var/www/html/mvc/views/login_view.blade.php */ ?>
 <?php $__env->startSection('content'); ?>
         <center>
-        <form action="/user/auth" method="post">
+        <form action="/login/auth" method="post">
             <h3>Login page</h3>
             <br>
             <input type="text" name="username" placeholder="Username"><br><br>
