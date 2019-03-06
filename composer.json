@@ -21,6 +21,9 @@
     "rakit/validation": "^1.1",
     "intervention/image": "^2.4",
     "phroute/phroute": "^2.1",
-    "jenssegers/blade": "^1.1"
+    "jenssegers/blade": "^1.1",
+    "illuminate/http": "^5.8",
+    "guzzlehttp/guzzle": "~6.0",
+    "jasongrimes/paginator": "~1.0"
   }
 }

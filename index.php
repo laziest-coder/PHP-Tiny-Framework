@@ -11,10 +11,7 @@ use Phroute\Phroute\Dispatcher;
 require_once __DIR__ . '/app/bootstrap.php';
 
 // // Create Symfony Request object
-// $request = Request::createFromGlobals();
-
-// Create main core class instance
-$app = new \Lib\Core();
+$request = Request::createFromGlobals();
 
  /* Phroute Part Start */
 function processInput($uri)
