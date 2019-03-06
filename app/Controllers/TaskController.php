@@ -1,6 +1,9 @@
 <?php
 
 namespace Controllers;
+
+use Models\Task;
+use Rakit\Validation\Validator;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class TaskController extends BaseController
@@ -11,37 +14,37 @@ class TaskController extends BaseController
         return $this->blade->make('task_create');
     }
 
-    public function getCheck()
-    {
-
-        // foreach($tasks as $task){
-        //     echo $task->getUsername()."<br>";
-        // }
-        return $this->blade->make('index', ['name' => 'John Doe']);
-        
-    }
-
     public function postCreate()
     {
-        $task = new \Models\Task();
+        $validator = new Validator;
 
-        $mail = $_POST['e-mail'];
-        $text = $_POST['text'];
+        $validation = $validator->make($_POST + $_FILES, [
+            'email' => 'required|email',
+            'username' => 'required',
+            'text' => 'required',
+            'image' => 'required|uploaded_file:0,2048K,png,jpg,gif',
+        ]);
+
+        $validation->validate();
+
+        if ($validation->fails()) {
+            // do smth
+        } 
+
+        $task = new Task();
+        $task->setUsername($this->request->request->get('username'));
+        $task->setBody($this->request->request->get('text'));
+        $task->setEmail($this->request->request->get('email'));
+
         $image = $_FILES['image'];
-        $username = $_POST['username'];
 
-        // $img = Image::make("uploads/".$image["name"]."")->resize(300, 200);
-
-        // $img->save('uploads/'.$image["tmp_name"]);
-
-        $task->setUsername($username);
-        $task->setBody($text);
-        $task->setEmail($mail);
-        $task->setImage("sfds.jpg");
+        $img = Image::make($image["tmp_name"])->resize(320, 240);
+        $img->save('uploads/'.$image["name"]);
+        $task->setImage($image['name']);
 
         $this->em->persist($task);
         $this->em->flush();
-        
+
         header('Location: /task/create');
     }
 

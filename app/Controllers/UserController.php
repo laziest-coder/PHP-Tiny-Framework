@@ -2,6 +2,8 @@
 
 namespace Controllers;
 
+use Rakit\Validation\Validator;
+
 class UserController extends BaseController
 {
 
@@ -12,25 +14,33 @@ class UserController extends BaseController
 
     public function postAuth()
     {
-        if (isset($_POST['username']) && isset($_POST['password'])) {
-            $username = (string) $_POST['username'];
-            $password = $_POST['password'];
-            $user = new User();
-            $result = $user->login($username, $password);
-            if ($result->num_rows > 0) {
+        $validator = new Validator;
+
+        $validation = $validator->make($_POST + $_FILES, [
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
+        $validation->validate();
+
+        if (!($validation->fails())) {
+            $username = $this->request->request->get('username');
+            $password = $this->request->request->get('password');
+            if ($username == 'admin' && $password == '123') {
                 $_SESSION['auth'] = 1;
                 header('Location: /');
-                } else {
+            }else{
                 header('Location: ' . $_SERVER['HTTP_REFERER']);
             }
         }
+
     }
 
     public function getLogout()
     {
-      if($_SESSION['auth'] == 1){
-          session_destroy();
-          header('Location: /');
-      }
+        if ($_SESSION['auth'] == 1) {
+            session_destroy();
+            header('Location: /');
+        }
     }
 }
