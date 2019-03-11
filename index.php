@@ -2,16 +2,13 @@
 ob_start();
 session_start();
 
-
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Phroute\Phroute\Dispatcher;
 
-// // The application bootstrap file
-require_once __DIR__ . '/app/bootstrap.php';
-
-// // Create Symfony Request object
-$request = Request::createFromGlobals();
+// Require autoload
+require_once __DIR__ . '/vendor/autoload.php';
+/* Routes file */
+require_once __DIR__ . '/routes/routes.php';
 
  /* Phroute Part Start */
 function processInput($uri)
