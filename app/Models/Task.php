@@ -2,11 +2,13 @@
 
 namespace Models;
 
+use Models\Model;
+
 /**
  * @Entity @Table(name="tasks")
  **/
 
-class Task
+class Task extends Model
 {
     /** @Id @Column(type="integer") @GeneratedValue **/
     protected $id;

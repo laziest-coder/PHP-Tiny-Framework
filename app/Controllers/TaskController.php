@@ -3,7 +3,6 @@
 namespace Controllers;
 
 use Models\Task;
-use Rakit\Validation\Validator;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class TaskController extends BaseController
@@ -16,7 +15,7 @@ class TaskController extends BaseController
 
     public function postCreate()
     {
-        $validator = new Validator;
+        $validator = $this->validator;
 
         $validation = $validator->make($_POST + $_FILES, [
             'email' => 'required|email',

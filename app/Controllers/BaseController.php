@@ -3,34 +3,27 @@
 namespace Controllers;
 
 use Jenssegers\Blade\Blade;
+use Rakit\Validation\Validator;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\Tools\Setup;
-use Doctrine\ORM\EntityManager;
 
-abstract class BaseController {
-
+abstract class BaseController
+{
     protected $em;
 
     protected $blade;
 
     protected $request;
 
+    protected $validator;
+
     public function __construct()
     {
-        // Require database configurations
-        require_once __DIR__ . '/../../config/config.php';
-        /* Doctrine ORM Part Start */
-        $entitiesPath = array(__DIR__. '/../Models');
-        $config = Setup::createAnnotationMetadataConfiguration($entitiesPath, $isDevMode);
-        $entityManager = EntityManager::create($dbParams, $config);
-        /* Doctrine ORM Part End */
-
+        // global $entityManager;
         // Create Symfony Request object
-        $request = Request::createFromGlobals();
-
-        $this->request = $request;
-        $this->em = $entityManager;
-        $this->blade = new Blade('views', 'cache');
+        $this->request = Request::createFromGlobals();
+        // $this->em = $entityManager;
+        $this->blade = new Blade('views', 'views/cache');
+        $this->validator = new Validator;
     }
 
 }

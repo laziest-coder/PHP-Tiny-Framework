@@ -1,19 +1,12 @@
 {
-  "name": "mirjalol/tasks",
+  "name": "Jasur/tasks",
   "type": "project",
-  "authors": [
-    {
-      "name": "Mirjalol",
-      "email": "mirjalol2401@gmail.com"
-    }
-  ],
   "autoload": {
     "psr-0": {
       "": "app/"
     }
   },
   "require": {
-    "twig/twig": "^2.0",
     "doctrine/orm": "^2.6",
     "symfony/routing": "^4.2",
     "symfony/http-foundation": "^4.2",
@@ -23,7 +16,6 @@
     "phroute/phroute": "^2.1",
     "jenssegers/blade": "^1.1",
     "illuminate/http": "^5.8",
-    "guzzlehttp/guzzle": "~6.0",
     "jasongrimes/paginator": "~1.0"
   }
 }
