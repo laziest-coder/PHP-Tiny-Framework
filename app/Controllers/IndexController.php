@@ -17,8 +17,8 @@ class IndexController extends BaseController
         }
         $maxPerPage = 3;
     
-        $task = new \Models\Task();
-        $taskRepository = $task->getEm()->getRepository('Models\\Task');
+        $model = new \Models\Model();
+        $taskRepository = $model->getEm()->getRepository('Models\\Task');
         $tasks = $taskRepository->findBy(
             array(),
             array(),
@@ -27,11 +27,10 @@ class IndexController extends BaseController
         );
 
         $totalItems = count($taskRepository->findAll());
-        $itemsPerPage = $maxPerPage;
         $currentPage = 1;
         $urlPattern = '(:num)';
 
-        $paginator = new Paginator($totalItems, $itemsPerPage, $currentPage, $urlPattern);
+        $paginator = new Paginator($totalItems, $maxPerPage, $currentPage, $urlPattern);
 
         return $this->blade->make('index',[
             'tasks' => $tasks,

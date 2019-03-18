@@ -18,7 +18,6 @@ abstract class BaseController
 
     public function __construct()
     {
-        // global $entityManager;
         // Create Symfony Request object
         $this->request = Request::createFromGlobals();
         // $this->em = $entityManager;
