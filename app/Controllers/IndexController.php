@@ -9,7 +9,6 @@ class IndexController extends BaseController
     
     public function getIndex($pageNum = null)
     {
-
         if( isset($pageNum) ) {
             $offset = (int)$pageNum;
         } else {
@@ -29,11 +28,14 @@ class IndexController extends BaseController
         $currentPage = 1;
         $urlPattern = '(:num)';
 
+        $session = $this->session->get('auth');
+
         $paginator = new Paginator($totalItems, $maxPerPage, $currentPage, $urlPattern);
 
         return $this->blade->make('index',[
             'tasks' => $tasks,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'session' => $session
         ]);
     }
 

@@ -35,7 +35,7 @@
          <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                <li class="nav-item active">
-               <?php if($_SESSION['auth'] == 1): ?>
+               <?php if($session == 1): ?>
                <a class="nav-link" href="/login/logout">Logout<span class="sr-only">(current)</span></a>
                <?php else: ?>
                   <a class="nav-link" href="/login">Login<span class="sr-only">(current)</span></a>

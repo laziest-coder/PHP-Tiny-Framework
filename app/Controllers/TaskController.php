@@ -17,7 +17,7 @@ class TaskController extends BaseController
     {
         $validator = $this->validator;
 
-        $validation = $validator->make($_POST + $_FILES, [
+        $validation = $validator->make($this->request->request + $this->request->files, [
             'email' => 'required|email',
             'username' => 'required',
             'text' => 'required',
@@ -27,7 +27,7 @@ class TaskController extends BaseController
         $validation->validate();
 
         if ($validation->fails()) {
-            // do smth
+            $this->redirect($this->request->server->get('HTTP_REFERER'));
         } 
 
         $task = new Task();
@@ -35,16 +35,16 @@ class TaskController extends BaseController
         $task->setBody($this->request->request->get('text'));
         $task->setEmail($this->request->request->get('email'));
 
-        $image = $_FILES['image'];
+        $image = $this->request->files->get('image');        
 
-        $img = Image::make($image["tmp_name"])->resize(320, 240);
-        $img->save('uploads/'.$image["name"]);
-        $task->setImage($image['name']);
+        $img = Image::make($image->getPathName())->resize(320, 240);
+        $img->save('uploads/'.$image->getClientOriginalName());
+        $task->setImage($image->getClientOriginalName());
 
         $this->em->persist($task);
         $this->em->flush();
 
-        header('Location: /task/create');
+        $this->redirect('/task/create');
     }
 
     public function getDelete($id)
@@ -53,7 +53,7 @@ class TaskController extends BaseController
         $task = $taskRepository->find($id);
         $this->em->remove($task);
         $this->em->flush();
-        header('Location: /');
+        $this->redirect('/');
     }
 
 }

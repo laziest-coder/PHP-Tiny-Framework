@@ -22,11 +22,11 @@
          <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                <li class="nav-item active">
-               @if($_SESSION['auth'] == 1)
-               <a class="nav-link" href="/login/logout">Logout<span class="sr-only">(current)</span></a>
-               @else
-                  <a class="nav-link" href="/login">Login<span class="sr-only">(current)</span></a>
-               @endif
+                  @if( $session == 1)
+                     <a class="nav-link" href="/login/logout">Logout<span class="sr-only">(current)</span></a>
+                  @else
+                     <a class="nav-link" href="/login">Login<span class="sr-only">(current)</span></a>
+                  @endif
                </li>
                <li class="nav-item">
                   <a class="nav-link" href="task/create">Create task</a>

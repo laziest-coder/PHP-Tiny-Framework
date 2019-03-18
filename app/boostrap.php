@@ -1,7 +1,6 @@
 <?php
 
 ob_start();
-session_start();
 
 use Symfony\Component\HttpFoundation\Response;
 use Phroute\Phroute\Dispatcher;

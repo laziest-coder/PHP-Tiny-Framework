@@ -14,7 +14,7 @@ class UserController extends BaseController
     {
         $validator = $this->validator;
 
-        $validation = $validator->make($_POST + $_FILES, [
+        $validation = $validator->make($this->request->request + $this->request->files, [
             'username' => 'required',
             'password' => 'required',
         ]);
@@ -22,7 +22,7 @@ class UserController extends BaseController
         $validation->validate();
 
         if ($validation->fails()) {
-            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            $this->redirect($this->request->server->get('HTTP_REFERER'));
         }
 
         $username = $this->request->request->get('username');
@@ -31,19 +31,19 @@ class UserController extends BaseController
         $user = $userRepository->findBy(['username' => $username, 'passwd' => $password]);
         
         if($user[0] != NULL){
-            $_SESSION['auth'] = 1;
-            header('Location: /');
+            $this->session->set('auth',1);
+            $this->redirect('/');
         } else {
-            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            $this->redirect($this->request->server->get('HTTP_REFERER'));
         }
 
     }
 
     public function getLogout()
     {
-        if ($_SESSION['auth'] == 1) {
+        if ($this->session->get('auth') == 1) {
             session_destroy();
-            header('Location: /');
+            $this->redirect('/');
         }
     }
 }

@@ -6,7 +6,7 @@
               <img src="uploads/<?php echo e($task->getImage()); ?>">
          </div>
              <div class="col-md-2">
-             <?php if( $_SESSION['auth'] == 1 ): ?>
+             <?php if( $session == 1 ): ?>
                  <a href="/task/delete/<?php echo e($task->getId()); ?>">Delete</a>
              <?php endif; ?>
              </div>

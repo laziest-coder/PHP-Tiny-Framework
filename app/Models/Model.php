@@ -8,27 +8,14 @@ use Doctrine\ORM\Tools\Setup;
 class Model
 {
 
-    protected $em;
-
-    public function __construct()
+    public static function getEntityManager()
     {
-        require __DIR__ . '/../../config/config.php';
-        /* Doctrine ORM Part Start */
+        define('BASE_DIR', dirname(__DIR__));
+        require BASE_DIR . '/../config/config.php';
         $entitiesPath = array(__DIR__ . '/');
         $config = Setup::createAnnotationMetadataConfiguration($entitiesPath, $isDevMode);
         $entityManager = EntityManager::create($dbParams, $config);
-        /* Doctrine ORM Part End */
-        $this->setEm($entityManager);
-    }
-
-    public function getEm()
-    {
-        return $this->em;
-    }
-
-    public function setEm($em)
-    {
-        $this->em = $em;
+        return $entityManager;
     }
 
 }
