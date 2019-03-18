@@ -3,7 +3,7 @@
 namespace Models;
 
 /**
- * @Entity @Table(name="tasks")
+ * @Entity @Table(name="users")
  **/
 
 class User

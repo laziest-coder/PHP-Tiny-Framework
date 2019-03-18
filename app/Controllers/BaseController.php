@@ -20,7 +20,8 @@ abstract class BaseController
     {
         // Create Symfony Request object
         $this->request = Request::createFromGlobals();
-        // $this->em = $entityManager;
+        $model = new \Models\Model();
+        $this->em = $model->getEm();
         $this->blade = new Blade('views', 'views/cache');
         $this->validator = new Validator;
     }

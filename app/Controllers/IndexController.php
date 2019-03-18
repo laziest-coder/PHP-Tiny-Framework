@@ -17,8 +17,7 @@ class IndexController extends BaseController
         }
         $maxPerPage = 3;
     
-        $model = new \Models\Model();
-        $taskRepository = $model->getEm()->getRepository('Models\\Task');
+        $taskRepository = $this->em->getRepository('Models\\Task');
         $tasks = $taskRepository->findBy(
             array(),
             array(),

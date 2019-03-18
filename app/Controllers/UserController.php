@@ -27,10 +27,10 @@ class UserController extends BaseController
 
         $username = $this->request->request->get('username');
         $password = $this->request->request->get('password');
-        // $userRepository = $this->em->getRepository('Models\\User');
-        // $user = $userRepository->findBy(['username' => $username, 'passwd' => $password]);
-        // var_dump($user);die();
-        if ($username == 'admin' && $password == '123') {
+        $userRepository = $this->em->getRepository('Models\\User');
+        $user = $userRepository->findBy(['username' => $username, 'passwd' => $password]);
+        
+        if($user[0] != NULL){
             $_SESSION['auth'] = 1;
             header('Location: /');
         } else {
